@@ -367,6 +367,20 @@ nav .nav-links ul li:hover {
   margin: 50px auto;
   border-radius: 6px;
 }
+
+.signup-form {
+  background-color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  margin: 50px auto;
+  border-radius: 6px;
+}
+
 .field {
   width: 100%;
 }
