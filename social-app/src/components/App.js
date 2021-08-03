@@ -26,7 +26,19 @@ class App extends React.Component {
           <Navbar />
           {/* <PostsList posts={posts} /> */}
 
-          <Route path="/" component={Home} />
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/signup">Signup</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          </ul>
+
+          <Route exact path="/" component={Home} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
         </div>
