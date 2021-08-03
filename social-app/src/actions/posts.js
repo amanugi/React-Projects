@@ -1,8 +1,8 @@
 import { UPDATE_POSTS } from './actionTypes';
 
 export function fetchPosts() {
+  // dispatch will be handled by thunk
   return (dispatch) => {
-    // dispatch will be handled by thunk
     const url =
       'http://codeial.codingninjas.com:8000/api/v2/posts?page=1&limit=5';
     fetch(url)
@@ -11,7 +11,7 @@ export function fetchPosts() {
       })
       .then((data) => {
         console.log(data);
-        dispatch(updatePosts(data.data.posts));
+        dispatch(updatePosts(data.data.posts)); // dispatching action to add posts to the store
       });
   };
 }
