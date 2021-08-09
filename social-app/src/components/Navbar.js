@@ -52,11 +52,13 @@ class Navbar extends React.Component {
         <div className="right-nav">
           {auth.isLoggedIn && (
             <div className="user">
-              <img
-                src="https://image.flaticon.com/icons/png/128/2922/2922510.png"
-                alt="user-dp"
-                id="user-dp"
-              />
+              <Link to="/settings">
+                <img
+                  src="https://image.flaticon.com/icons/png/128/2922/2922510.png"
+                  alt="user-dp"
+                  id="user-dp"
+                />
+              </Link>
               <span>{auth.user.name}</span>
             </div>
           )}
