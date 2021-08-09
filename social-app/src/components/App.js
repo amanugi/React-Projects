@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import jwtDecode from 'jwt-decode'; // to decode the token
+import jwtDecode from 'jwt-decode';
 import PropTypes from 'prop-types';
 
 import { fetchPosts } from '../actions/posts';
@@ -15,7 +15,7 @@ class App extends React.Component {
 
     const token = localStorage.getItem('token');
     if (token) {
-      const user = jwtDecode(token);
+      const user = jwtDecode(token); // to decode the token
       //console.log('user', user);
       //dispatching authenticateUser action
       this.props.dispatch(

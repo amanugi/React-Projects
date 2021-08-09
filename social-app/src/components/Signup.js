@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-import { signup, startSignup } from '../actions/auth';
+import { signup, startSignup, clearAuthState } from '../actions/auth';
 
 class Signup extends Component {
   constructor(props) {
@@ -17,6 +18,11 @@ class Signup extends Component {
       password: '',
       confirmPassword: '',
     };
+  }
+
+  // this will be executed when signup component gets destroyed(i.e. when u leave the page)
+  componentWillUnmount() {
+    this.props.dispatch(clearAuthState());
   }
 
   handleInputChange = (field, value) => {
@@ -36,7 +42,12 @@ class Signup extends Component {
   };
 
   render() {
-    const { inProgress, error } = this.props.auth;
+    const { inProgress, error, isLoggedIn } = this.props.auth;
+
+    if (isLoggedIn) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <form className="login-form">
         <span className="login-signup-header">Signup</span>
