@@ -13,7 +13,7 @@ class Login extends Component {
     // // Login using Controlled-Component Method(ie. from react state)
     this.state = {
       email: '',
-      paswword: '',
+      password: '',
     };
   }
 
@@ -35,7 +35,7 @@ class Login extends Component {
     e.preventDefault();
     // console.log('this.emailInputRef', this.emailInputRef);
     // console.log('this.passwordInputRef', this.passwordInputRef);
-    console.log('this.state', this.state);
+    //console.log('this.state', this.state);
 
     const { email, password } = this.state;
 
@@ -65,7 +65,7 @@ class Login extends Component {
             type="password"
             placeholder="Password"
             //ref={this.passwordInputRef}
-            onChange={this.handlePasswordChange} // this will be called when there will bws ome changes in the input box
+            onChange={this.handlePasswordChange} // this will be called when there will be some changes in the input box
             value={this.state.password}
             required
           />

@@ -1,14 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import jwtDecode from 'jwt-decode'; // to decode the token
 import PropTypes from 'prop-types';
 
 import { fetchPosts } from '../actions/posts';
 import { Home, Navbar, Page404, Login, Signup } from './';
+import { authenticateUser } from '../actions/auth';
 
 class App extends React.Component {
+  // when page/component gets loaded for the first time
   componentDidMount() {
     this.props.dispatch(fetchPosts());
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      const user = jwtDecode(token);
+      //console.log('user', user);
+      //dispatching authenticateUser action
+      this.props.dispatch(
+        authenticateUser({
+          email: user.email,
+          _id: user._id,
+          name: user.name,
+        })
+      );
+    }
   }
 
   render() {

@@ -1,5 +1,15 @@
 import { APIUrls } from '../helpers/urls';
-import { LOGIN_FAILED, LOGIN_START, LOGIN_SUCCESS } from './actionTypes';
+import {
+  LOGIN_START,
+  LOGIN_FAILED,
+  LOGIN_SUCCESS,
+  AUTHENTICATE_USER,
+  LOG_OUT,
+  SIGNUP_START,
+  SIGNUP_FAILED,
+  SIGNUP_SUCCESS,
+} from './actionTypes';
+
 import { getFormBody } from '../helpers/utils';
 
 //Action Creator
@@ -9,10 +19,10 @@ export function startLogin() {
   };
 }
 
-export function loginFailed(errormessage) {
+export function loginFailed(errorMessage) {
   return {
     type: LOGIN_FAILED,
-    error: errormessage,
+    error: errorMessage,
   };
 }
 
@@ -40,6 +50,7 @@ export function login(email, password) {
         console.log('data', data);
         if (data.success) {
           // dispatch an action to save the user
+          localStorage.setItem('token', data.data.token);
           dispatch(loginSuccess(data.data.user));
           return;
         }
@@ -48,27 +59,67 @@ export function login(email, password) {
   };
 }
 
+// Action creator
+export function authenticateUser(user) {
+  return {
+    type: AUTHENTICATE_USER,
+    user,
+  };
+}
+
+export function logOutUser() {
+  return {
+    type: LOG_OUT,
+  };
+}
+
 // asynchronous action for signup
-export function signup(username, email, password) {
+export function signup(name, email, password, confirmPassword) {
   return (dispatch) => {
-    dispatch(startSignup()); // to track the inProgress property
+    //dispatch(startSignup());
     const url = APIUrls.signup();
     fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: getFormBody({ email, password }),
+      body: getFormBody({
+        name,
+        email,
+        password,
+        confirmPassword: confirmPassword,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log('data', data);
         if (data.success) {
-          // dispatch an action to save the user
-          dispatch(loginSuccess(data.data.user));
+          // dispatch an action
+          dispatch(signupSuccessful(data.data.user));
           return;
         }
-        dispatch(loginFailed(data.message));
+        dispatch(signupFailed(data.message));
       });
+  };
+}
+
+//Action Creator
+export function startSignup() {
+  return {
+    type: SIGNUP_START,
+  };
+}
+
+export function signupFailed(error) {
+  return {
+    type: SIGNUP_FAILED,
+    error,
+  };
+}
+
+export function signupSuccessful(user) {
+  return {
+    type: SIGNUP_SUCCESS,
+    user,
   };
 }
